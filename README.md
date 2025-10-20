@@ -281,19 +281,40 @@
     const form = document.getElementById('registroForm');
     const mensaje = document.getElementById('mensajeRegistro');
 
-    form.addEventListener('submit', function(event) {
+    form.addEventListener('submit', async function(event) {
       event.preventDefault();
 
-      
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData);
 
-      form.reset();
-      mensaje.style.display = 'block';
+      try {
+        const response = await fetch('/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
 
-      setTimeout(() => {
-        mensaje.style.display = 'none';
-      }, 3000);
+        const result = await response.json();
+
+        if (response.ok) {
+          mensaje.textContent = result.message;
+          mensaje.style.display = 'block';
+          form.reset();
+          setTimeout(() => {
+            mensaje.style.display = 'none';
+          }, 3000);
+        } else {
+          alert(result.error);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Error de conexión.');
+      }
     });
   </script>
 
 </body>
 </html>
+
+
+ 
