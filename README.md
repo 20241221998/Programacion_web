@@ -1,19 +1,20 @@
 # Programacion_web
 
 
+
+     
+      
+      <?php include "conexion.php"; ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Granja Porcícola El Olivo: Crianza responsable de cerdos con productos de alta calidad." />
   <title>Granja Porcícola El Olivo</title>
-  <!-- Fuente elegante -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet" />
-  <!-- Favicon -->
   <link rel="icon" href="logo-cerdo.png" type="image/png" />
   <style>
-    :root {
+ :root {
       --olive-dark: #556b2f;
       --olive-medium: #6b8e23;
       --gold: #d4af37;
@@ -323,120 +324,90 @@
         font-size: 1.1rem;
       }
     }
+   
   </style>
 </head>
 <body>
+
+  <!-- HEADER -->
   <header>
-    <div class="logo-container" aria-label="Logo Granja Porcícola El Olivo">
-      <img src="logo-cerdo.png" alt="Logo Granja Porcícola El Olivo - cabeza de cerdo con estilo tradicional en tonos oliva y beige" />
+    <div class="logo-container">
+      <img src="logo-cerdo.png" alt="Logo" />
       <div class="site-title">
         <h1>Granja Porcícola El Olivo</h1>
         <p>Calidad y confianza, bajo la sombra del olivo.</p>
       </div>
     </div>
-    <a href="#registro" class="btn" aria-label="Ir a la sección de registro de usuario">Registro</a>
+    <a href="#registro" class="btn">Registro</a>
   </header>
 
+  <!-- NAV -->
   <nav>
-    <a href="#nosotros" tabindex="0">Nosotros</a>
-    <a href="#productos" tabindex="0">Productos</a>
-    <a href="#contacto" tabindex="0">Contacto</a>
+    <a href="#nosotros">Nosotros</a>
+    <a href="#productos">Productos</a>
+    <a href="#contacto">Contacto</a>
   </nav>
 
   <main>
+
+    <!-- NOSOTROS -->
     <section id="nosotros">
       <h2>Sobre Nosotros</h2>
       <p>
         En la Granja Porcícola El Olivo nos dedicamos a la crianza responsable de cerdos, 
-        garantizando productos de alta calidad para nuestros clientes. 
-        Nuestro compromiso está en la innovación, el bienestar animal y el respeto por el medio ambiente.
+        garantizando productos de alta calidad para nuestros clientes.
       </p>
     </section>
 
+    <!-- PRODUCTOS -->
     <section id="productos">
       <h2>Nuestros Productos</h2>
-      <ul>
-        <li>Asesorías</li>
-        <li>Cerdas de cría</li>
-        <li>Venta de semen</li>
-      </ul>
-      <a href="#contacto" class="btn" aria-label="Solicitar más información en contacto">Solicita más información</a>
+	  <ul>
+	  <li>Asesorías</li>
+	  <li>Cerdas de cría</li> 
+	  <li>Venta de semen</li>
+	  </ul>
+      <a href="#contacto" class="btn">Solicita más información</a>
     </section>
-
+ <?php include "productos.php"; ?>
+    <!-- REGISTRO -->
     <section id="registro">
       <h2>Crear Usuario</h2>
-      <form id="registroForm" aria-label="Formulario para crear usuario nuevo">
-        <label for="usuario">Nombre de usuario:</label>
-        <input type="text" id="usuario" name="usuario" required aria-required="true" />
 
-        <label for="password">Contraseña:</label>
-        <input type="password" id="password" name="password" required minlength="8" aria-required="true" />
+      <form action="guardar_registro.php" method="POST">
+        <label>Nombre de usuario:</label>
+        <input type="text" name="usuario" required />
 
-        <input type="submit" value="Registrar" aria-label="Botón para registrar usuario" />
+        <label>Contraseña:</label>
+        <input type="password" name="password" required minlength="8" />
+
+        <input type="submit" value="Registrar" />
       </form>
-      <p id="mensajeRegistro" class="success-message" role="alert" aria-live="polite" style="display:none;">¡Registro exitoso!</p>
     </section>
 
+    <!-- CONTACTO -->
     <section id="contacto">
       <h2>Contacto</h2>
-      <p>📍 Dirección: Vereda Sartenejal, Guadalupe, Huila</p>
-      <p>📞 Teléfono: <a href="tel:3104746472">3104746472</a></p>
-      <p>📧 Email: <a href="mailto:porcicolaelolivo@gmail.com">porcicolaelolivo@gmail.com</a></p>
-      <p>🌍 <a href="https://www.google.com/maps/search/?api=1&query=Vereda+Sartenejal,+Guadalupe,+Huila,+Colombia" target="_blank" rel="noopener noreferrer">Ver en Google Maps</a></p>
+
+      <form action="guardar_contacto.php" method="POST">
+        <input type="text" name="nombre" placeholder="Nombre" required />
+        <input type="email" name="email" placeholder="Email" required />
+        <input type="text" name="telefono" placeholder="Teléfono" />
+        <textarea name="mensaje" placeholder="Mensaje" required></textarea>
+        <button type="submit" class="btn">Enviar mensaje</button>
+      </form>
+
+      <p>📍 Vereda Sartenejal, Guadalupe, Huila</p>
+      <p>📞 3104746472</p>
+      <p>📧 porcicolaelolivo@gmail.com</p>
     </section>
+
   </main>
 
   <footer>
     <p>&copy; 2024 Granja Porcícola El Olivo | Todos los derechos reservados</p>
   </footer>
 
-  <script>
-    // Scroll suave para todos los enlaces internos
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-
-        const targetID = this.getAttribute('href').substring(1);
-        const target = document.getElementById(targetID);
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
-      });
-    });
-
-    // Manejo registro formulario
-    const form = document.getElementById('registroForm');
-    const mensaje = document.getElementById('mensajeRegistro');
-
-    form.addEventListener('submit', function(event) {
-      event.preventDefault();
-
-      const usuario = document.getElementById('usuario').value.trim();
-      const password = document.getElementById('password').value;
-
-      if (!usuario) {
-        alert('Por favor, ingresa un nombre de usuario.');
-        return;
-      }
-
-      if (password.length < 8) {
-        alert('La contraseña debe tener al menos 8 caracteres.');
-        return;
-      }
-
-      // Aquí podrías conectar con API real más adelante
-      console.log('Usuario registrado:', usuario);
-
-      form.reset();
-      mensaje.style.display = 'block';
-
-      setTimeout(() => {
-        mensaje.style.display = 'none';
-      }, 3000);
-    });
-  </script>
 </body>
+</html>
 </html>
